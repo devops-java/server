@@ -2,10 +2,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: client
+  name: server
 spec:
   selector:
-    app: client
+    app: server
   ports:
   - protocol: TCP
     port: 8080
@@ -14,20 +14,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client
+  name: server
 spec:
   selector:
       matchLabels:
-        app: client
+        app: server
   replicas: 2
   template:
     metadata:
       labels:
-        app: client
+        app: server
     spec:
       containers:
-        - name: client
-          image: client:1.1
+        - name: server
+          image: server:1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
