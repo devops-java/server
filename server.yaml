@@ -1,0 +1,33 @@
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: client
+spec:
+  selector:
+    app: client
+  ports:
+  - protocol: TCP
+    port: 8080
+    nodePort: 30001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+spec:
+  selector:
+      matchLabels:
+        app: client
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: client:1.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
